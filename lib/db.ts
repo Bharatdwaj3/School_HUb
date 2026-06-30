@@ -2,10 +2,6 @@
 import mongoose from 'mongoose';
 import { MONGODB_URI } from '@/config/env';
 
-if (!MONGODB_URI) {
-  throw new Error('Please define MONGODB_URI in .env.local or .env');
-}
-
 declare global {
   var mongoose: { conn: mongoose.Connection | null; promise: Promise<mongoose.Connection> | null } | undefined;
 }
@@ -18,13 +14,16 @@ export async function connectDB() {
     return cached.conn;
   }
 
+  if (!MONGODB_URI) {
+    throw new Error('Please define MONGODB_URI in .env.local or .env');
+  }
+
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
       serverSelectionTimeoutMS: 30000,
     };
-
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((m) => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((m) => {
       console.log('MongoDB connected successfully (SchoolHub)');
       return m.connection;
     });
