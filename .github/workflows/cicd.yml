@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline - SchoolHub
 
 on:
   push:
@@ -45,17 +45,17 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      - name: Create env file
+      - name: Create env file for build
         run: |
-          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
-          echo "JWT_ACC_SECRET=${{ secrets.JWT_ACC_SECRET }}" >> .env
-          echo "JWT_REF_SECRET=${{ secrets.JWT_REF_SECRET }}" >> .env
-          echo "JWT_ACC_EXPIRES_IN=1h" >> .env
-          echo "JWT_REF_EXPIRES_IN=7d" >> .env
-          echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env
-          echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}" >> .env
-          echo "CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}" >> .env
-          echo "ADMIN_SECRET=${{ secrets.ADMIN_SECRET }}" >> .env
+          cat > .env << EOF
+          MONGODB_URI=mongodb://dummy-for-build
+          JWT_ACC_SECRET=dummy-jwt-secret-for-build-only
+          JWT_REF_SECRET=dummy-jwt-secret-for-build-only
+          ADMIN_SECRET=dummy-admin-secret
+          CLOUDINARY_CLOUD_NAME=dummy
+          CLOUDINARY_API_KEY=dummy
+          CLOUDINARY_API_SECRET=dummy
+          EOF
       - run: npm ci
       - run: npm run build
 
