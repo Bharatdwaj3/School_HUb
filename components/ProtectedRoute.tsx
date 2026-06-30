@@ -31,6 +31,7 @@ export default function ProtectedRoute({
     }
   }, [user, loading, allowedRoles, router, redirectTo]);
 
+  //if (loading || !user) return <div className="flex items-center justify-center min-h-screen" suppressHydrationWarning>Loading...</div>;
   if (loading || !user) return <div className="flex items-center justify-center min-h-screen" suppressHydrationWarning>Loading...</div>;
   if (allowedRoles.length > 0 && !allowedRoles.includes(user.role as any)) return null;
 

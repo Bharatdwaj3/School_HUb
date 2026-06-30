@@ -41,8 +41,6 @@ export async function GET() {
         updatedAt: profile.updatedAt,
         lastLogin: profile.lastLogin,
         schoolId: profile.schoolId,
-        classId: profile.classId,
-        section: profile.section,
       },
     });
   } catch (err) {

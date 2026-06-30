@@ -7,8 +7,12 @@ export interface IUser extends Document {
   email: string;
   password: string;
   avatar?: string;
-  role: 'teacher' | 'student' | 'parent' | 'admin';   
+  role: 'teacher' | 'student' | 'parent' | 'admin';
   schoolId?: string;
+  classId?: string;       
+  section?: string;        
+  employeeId?: string;    
+  rollNumber?: string;     
   refreshToken?: string | null;
   lastLogin: Date;
   isActive: boolean;
@@ -18,6 +22,7 @@ export interface IUser extends Document {
 
 const userSchema = new Schema<IUser>(
   {
+    
     userName: {
       type: String,
       required: [true, 'Username is required'],
